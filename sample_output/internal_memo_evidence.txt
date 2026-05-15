@@ -1,0 +1,9 @@
+[Evidence 1] (score=0.2544)
+Memorandum
+
+To: Litigation Team
+From: Associate
+Date: April 8, 2026
+Subject: Quantum Dynamics LLC dispute — risk assessment and next steps
+
+Facts: Pinnacle Tech Solutions, Inc. contracted with Quantum Dynamics LLC under a Software Services Agreement dated September 1, 2023. The agreement required delivery of a custom enterprise data pipeline system by January 31, 2024. Pinnacle advanced milestone payments totaling $1,900,000. Quantum provided draft designs but failed to deliver a functioning system, which Pinnacle alleges constitutes breach. Issues: The complaint asserts breach of contract, fraudulent misrepresentation, and unjust enrichment. Key issues include whether Quantum misrepresented prior client success, whether the January 31, 2024 deadline was material, and whether Pinnacle properly preserved evidence of payment and delivery demands. Recommendations: Preserve all email correspondence and project status reports. Consider an early damages estimate of $2,850,000 plus consequential costs. Evaluate potential settlement around completion of the pipeline and refund of milestone payments. Confirm jurisdiction remains New York County Superior Court. The company should also identify any third-party vendors involved in the system deployment and assess authentication logs for evidence of incomplete performance. The matter appears to be a strong breach case if documentation shows the defendant had the resources to complete the project and did not.

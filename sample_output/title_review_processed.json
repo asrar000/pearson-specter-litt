@@ -1,0 +1,38 @@
+{
+  "filename": "title_review.txt",
+  "raw_text": "TITLE REVIEW REPORT\n\nDocument: Software Services Agreement and related security interests\nReview Date: April 10, 2026\nReviewer: Title Analyst\n\nSummary: Pinnacle Tech Solutions, Inc. entered into a Software Services Agreement with Quantum Dynamics LLC on September 1, 2023. The review assesses whether any title or lien issues arise from the contract and associated deliverables.\n\nFindings: The agreement grants Quantum a limited license to use certain Pinnacle proprietary specifications for system development. There are no recorded liens on Pinnacle's corporate assets from this transaction. The contract includes a clause requiring Quantum to warrant that it has clear title to all software components delivered and that no third-party intellectual property claims will attach.\n\nThe agreement also contains an indemnity provision for third-party claims arising from use of the delivered system. There is a notice requirement for any claimed security interest by a subcontractor or vendor. No encumbrances were disclosed in the project documentation.\n\nConclusion: Based on the available documents, the title review does not identify any existing liens or adverse ownership claims related to the project deliverables. Confirm with the operations team that no external software libraries were licensed under restrictive terms that could impair title.",
+  "file_type": "text",
+  "structured_fields": {
+    "case_number": null,
+    "document_type": "Software Services Agreement",
+    "parties": {
+      "plaintiff": null,
+      "defendant": null,
+      "others": [
+        "Pinnacle Tech Solutions, Inc.",
+        "Quantum Dynamics LLC"
+      ]
+    },
+    "dates": {
+      "filing_date": null,
+      "incident_date": "September 1, 2023",
+      "other_dates": [
+        "April 10, 2026"
+      ]
+    },
+    "jurisdiction": null,
+    "attorneys": [],
+    "key_claims": [],
+    "contract_value": null,
+    "keywords": [
+      "Software Services Agreement",
+      "title review",
+      "security interests",
+      "intellectual property"
+    ]
+  },
+  "chunk_count": 1,
+  "chunks": [
+    "TITLE REVIEW REPORT\n\nDocument: Software Services Agreement and related security interests\nReview Date: April 10, 2026\nReviewer: Title Analyst\n\nSummary: Pinnacle Tech Solutions, Inc. entered into a Software Services Agreement with Quantum Dynamics LLC on September 1, 2023. The review assesses whether any title or lien issues arise from the contract and associated deliverables. Findings: The agreement grants Quantum a limited license to use certain Pinnacle proprietary specifications for system development. There are no recorded liens on Pinnacle's corporate assets from this transaction. The contract includes a clause requiring Quantum to warrant that it has clear title to all software components delivered and that no third-party intellectual property claims will attach. The agreement also contains an indemnity provision for third-party claims arising from use of the delivered system. There is a notice requirement for any claimed security interest by a subcontractor or vendor. No encumbrances were disclosed in the project documentation. Conclusion: Based on the available documents, the title review does not identify any existing liens or adverse ownership claims related to the project deliverables. Confirm with the operations team that no external software libraries were licensed under restrictive terms that could impair title."
+  ]
+}

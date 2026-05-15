@@ -1,0 +1,19 @@
+[Evidence 1] (score=0.393)
+DOCUMENT CHECKLIST
+
+Project: Enterprise Data Pipeline System
+Client: Pinnacle Tech Solutions, Inc. Vendor: Quantum Dynamics LLC
+
+Required documents:
+- Fully executed Software Services Agreement dated September 1, 2023
+- Statement of work and project milestones
+- Payment receipts for $950,000 on October 1, 2023 and $950,000 on December 1, 2023
+- Project status reports through February 2024
+- Design specifications, architecture diagrams, and installation plan
+- Delivery acceptance criteria and milestone completion approvals
+- Correspondence documenting delivery demands on February 5, 2024 and February 22, 2024
+- Notices of breach or cure opportunities
+- Warranty and indemnity provisions
+- Third-party licensing certificates and source code ownership statements
+
+Checklist purpose: Ensure all documentary evidence is available to support claims of breach, misrepresentation, and unjust enrichment. Confirm that contract terms, performance obligations, and notice periods are documented for litigation or negotiation.

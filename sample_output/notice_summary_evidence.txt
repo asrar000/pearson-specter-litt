@@ -1,0 +1,10 @@
+[Evidence 1] (score=0.2372)
+NOTICE OF BREACH AND DEMAND FOR PERFORMANCE
+
+Date: March 5, 2024
+To: Quantum Dynamics LLC
+Attn: Harold Winsted, Managing Director
+
+Re: Software Services Agreement dated September 1, 2023
+
+Pinnacle Tech Solutions, Inc. hereby provides notice that Quantum Dynamics LLC is in material breach of the Software Services Agreement. The contract required delivery of a custom enterprise data pipeline system by January 31, 2024, to process no fewer than 10,000 records per hour with 99.9% uptime. Pinnacle paid $950,000 on October 1, 2023 and $950,000 on December 1, 2023. Quantum has failed to meet the delivery deadline and has not provided the required design documentation or training materials. Demand: Pinnacle demands immediate delivery of the finished system within fourteen (14) days of this notice. If Quantum does not cure the breach within that period, Pinnacle reserves all rights to terminate the agreement and pursue damages, including refund of payments and consequential losses. Please respond in writing by March 19, 2024. This notice is without prejudice to any other rights or remedies available to Pinnacle under the agreement or at law.

@@ -1,0 +1,37 @@
+[
+  {
+    "doc": "case_fact_summary.txt",
+    "draft_type": "case_fact_summary",
+    "processed_file": "sample_output\\case_fact_summary_processed.json",
+    "draft_file": "sample_output\\case_fact_summary_draft.md",
+    "evidence_file": "sample_output\\case_fact_summary_evidence.txt"
+  },
+  {
+    "doc": "document_checklist.txt",
+    "draft_type": "document_checklist",
+    "processed_file": "sample_output\\document_checklist_processed.json",
+    "draft_file": "sample_output\\document_checklist_draft.md",
+    "evidence_file": "sample_output\\document_checklist_evidence.txt"
+  },
+  {
+    "doc": "internal_memo.txt",
+    "draft_type": "internal_memo",
+    "processed_file": "sample_output\\internal_memo_processed.json",
+    "draft_file": "sample_output\\internal_memo_draft.md",
+    "evidence_file": "sample_output\\internal_memo_evidence.txt"
+  },
+  {
+    "doc": "notice_summary.txt",
+    "draft_type": "notice_summary",
+    "processed_file": "sample_output\\notice_summary_processed.json",
+    "draft_file": "sample_output\\notice_summary_draft.md",
+    "evidence_file": "sample_output\\notice_summary_evidence.txt"
+  },
+  {
+    "doc": "title_review.txt",
+    "draft_type": "title_review",
+    "processed_file": "sample_output\\title_review_processed.json",
+    "draft_file": "sample_output\\title_review_draft.md",
+    "evidence_file": "sample_output\\title_review_evidence.txt"
+  }
+]
