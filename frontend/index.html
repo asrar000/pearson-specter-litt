@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pearson Specter Litt — AI Legal System</title>
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --surface: #111827;
+      --card: #1a2235;
+      --border: #2a3655;
+      --accent: #c9a96e;
+      --accent-dim: #8b6e3d;
+      --text: #e8eaf0;
+      --muted: #7a8499;
+      --success: #3ec97a;
+      --warning: #f0b342;
+      --error: #e85555;
+      --info: #5b9cf6;
+      --radius: 8px;
+      --font: 'Segoe UI', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration: none; }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      height: 58px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      color: var(--accent);
+    }
+    .logo span { color: var(--muted); font-weight: 400; font-size: 13px; margin-left: 6px; }
+    nav { display: flex; gap: 4px; }
+    .tab-btn {
+      background: none;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 13px;
+      padding: 7px 16px;
+      transition: all .2s;
+    }
+    .tab-btn:hover { color: var(--text); border-color: var(--border); }
+    .tab-btn.active { background: var(--card); color: var(--accent); border-color: var(--accent-dim); }
+
+    /* ── Layout ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 28px 20px; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .card-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    /* ── Upload zone ── */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .upload-zone:hover, .upload-zone.drag-over {
+      border-color: var(--accent);
+      background: rgba(201,169,110,.05);
+    }
+    .upload-zone .icon { font-size: 32px; margin-bottom: 10px; }
+    .upload-zone p { color: var(--muted); font-size: 13px; }
+    .upload-zone strong { color: var(--accent); }
+
+    /* ── Buttons ── */
+    .btn {
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius);
+      color: #0b0f1a;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 18px;
+      transition: opacity .2s;
+    }
+    .btn:hover { opacity: .85; }
+    .btn:disabled { opacity: .4; cursor: default; }
+    .btn-ghost {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-danger { background: var(--error); color: #fff; }
+    .btn-sm { padding: 5px 12px; font-size: 12px; }
+
+    /* ── Form elements ── */
+    select, input[type="text"] {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 13px;
+      padding: 8px 12px;
+      width: 100%;
+    }
+    select:focus, input:focus { outline: 1px solid var(--accent); }
+    label { display: block; margin-bottom: 6px; color: var(--muted); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+
+    /* ── Tables ── */
+    table { width: 100%; border-collapse: collapse; }
+    th { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+    td { padding: 11px 12px; border-bottom: 1px solid rgba(255,255,255,.04); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,.02); }
+
+    /* ── Status badges ── */
+    .badge {
+      border-radius: 12px;
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+    }
+    .badge-done { background: rgba(62,201,122,.15); color: var(--success); }
+    .badge-processing { background: rgba(91,156,246,.15); color: var(--info); }
+    .badge-pending { background: rgba(255,255,255,.07); color: var(--muted); }
+    .badge-failed { background: rgba(232,85,85,.15); color: var(--error); }
+
+    /* ── Draft viewer ── */
+    .draft-layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
+    .draft-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: 'Georgia', serif;
+      font-size: 14px;
+      line-height: 1.75;
+      min-height: 400px;
+      padding: 24px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    textarea.draft-editor {
+      background: var(--surface);
+      border: 1px solid var(--accent-dim);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      font-size: 14px;
+      line-height: 1.75;
+      min-height: 420px;
+      padding: 20px;
+      resize: vertical;
+      width: 100%;
+    }
+    .evidence-panel .evidence-item {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 10px;
+      padding: 10px 12px;
+    }
+    .evidence-item .ev-score {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .evidence-item .ev-text { color: var(--muted); font-size: 12px; line-height: 1.5; }
+
+    /* ── Patterns ── */
+    .pattern-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent-dim);
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      padding: 16px;
+    }
+    .pattern-meta { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .pattern-type { background: rgba(201,169,110,.12); color: var(--accent); border-radius: 10px; font-size: 11px; padding: 2px 8px; }
+    .pattern-count { color: var(--muted); font-size: 11px; }
+    .pattern-desc { color: var(--text); font-size: 13px; margin-bottom: 10px; }
+    .pattern-example { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .pattern-before, .pattern-after {
+      background: var(--surface);
+      border-radius: 6px;
+      font-size: 11px;
+      padding: 8px;
+      color: var(--muted);
+    }
+    .pattern-before span, .pattern-after span { display: block; font-weight: 700; margin-bottom: 4px; }
+    .pattern-before span { color: var(--error); }
+    .pattern-after span { color: var(--success); }
+
+    /* ── Fields display ── */
+    .fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .field-item { background: var(--surface); border-radius: 6px; padding: 10px 12px; }
+    .field-label { color: var(--muted); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+    .field-value { color: var(--text); font-size: 13px; word-break: break-all; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      display: none;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 12px 20px;
+      max-width: 360px;
+    }
+    #toast.show { display: block; }
+    #toast.success { background: var(--success); color: #0b1a0f; }
+    #toast.error   { background: var(--error);   color: #fff; }
+    #toast.info    { background: var(--info);     color: #0a0e1a; }
+
+    /* ── Misc ── */
+    .empty-state { color: var(--muted); font-size: 13px; padding: 24px; text-align: center; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .section-title { font-size: 16px; font-weight: 700; }
+    .text-muted { color: var(--muted); }
+    .text-accent { color: var(--accent); }
+    .mt-12 { margin-top: 12px; }
+    .mt-20 { margin-top: 20px; }
+    .flex { display: flex; }
+    .gap-8 { gap: 8px; }
+    .gap-12 { gap: 12px; }
+    .align-center { align-items: center; }
+    hr.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    .spinner {
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-row td { color: var(--muted); font-style: italic; }
+    .text-preview {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--muted);
+      max-height: 160px;
+      overflow-y: auto;
+      padding: 10px;
+      white-space: pre-wrap;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">⚖ Pearson Specter Litt <span>AI Legal System</span></div>
+  <nav>
+    <button class="tab-btn active" id="btn-documents" onclick="showTab('documents')">📁 Documents</button>
+    <button class="tab-btn" id="btn-drafts" onclick="showTab('drafts')">📝 Draft Studio</button>
+    <button class="tab-btn" id="btn-patterns" onclick="showTab('patterns')">🧠 Learned Patterns</button>
+  </nav>
+</header>
+
+<!-- ── DOCUMENTS TAB ───────────────────────────────────────────── -->
+<div id="tab-documents" class="tab-content active">
+  <div class="container">
+    <div class="grid-2">
+
+      <!-- Upload -->
+      <div class="card">
+        <div class="card-title">Upload Document</div>
+        <div class="upload-zone" id="upload-zone"
+             onclick="document.getElementById('file-input').click()"
+             ondragover="event.preventDefault(); this.classList.add('drag-over')"
+             ondragleave="this.classList.remove('drag-over')"
+             ondrop="handleDrop(event)">
+          <div class="icon">📄</div>
+          <p><strong>Click to upload</strong> or drag &amp; drop</p>
+          <p style="margin-top:6px">PDF, PNG, JPG, TXT — messy inputs welcome</p>
+        </div>
+        <input type="file" id="file-input" style="display:none"
+               accept=".pdf,.png,.jpg,.jpeg,.tiff,.txt,.md"
+               onchange="uploadFile(this.files[0])">
+        <div id="upload-status" class="mt-12" style="display:none"></div>
+      </div>
+
+      <!-- Document detail -->
+      <div class="card" id="doc-detail-card">
+        <div class="card-title">Document Details</div>
+        <div id="doc-detail-content" class="empty-state">
+          Select a document from the list to view details.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Document list -->
+    <div class="card mt-20">
+      <div class="section-header">
+        <div class="section-title">Processed Documents</div>
+        <button class="btn btn-ghost btn-sm" onclick="loadDocuments()">↻ Refresh</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Filename</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Chunks</th>
+            <th>Case No.</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="doc-table-body">
+          <tr class="loading-row"><td colspan="6" class="empty-state">Loading documents…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── DRAFTS TAB ──────────────────────────────────────────────── -->
+<div id="tab-drafts" class="tab-content">
+  <div class="container">
+
+    <!-- Generator form -->
+    <div class="card" id="draft-generator-card">
+      <div class="card-title">Generate Grounded Draft</div>
+      <div class="grid-3" style="gap:16px; align-items:end">
+        <div>
+          <label>Document</label>
+          <select id="draft-doc-select">
+            <option value="">— select a document —</option>
+          </select>
+        </div>
+        <div>
+          <label>Draft Type</label>
+          <select id="draft-type-select">
+            <option value="case_fact_summary">Case Fact Summary</option>
+            <option value="internal_memo">Internal Memo</option>
+            <option value="notice_summary">Notice-Related Summary</option>
+            <option value="title_review">Title Review Summary</option>
+            <option value="document_checklist">Document Checklist</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn" onclick="generateDraft()" id="gen-btn">Generate Draft</button>
+        </div>
+      </div>
+      <div style="margin-top:14px">
+        <label>Focus query (optional — leave blank for full summary)</label>
+        <input type="text" id="draft-query" placeholder="e.g. What are the key contractual obligations?" />
+      </div>
+    </div>
+
+    <!-- Draft output -->
+    <div id="draft-output-section" style="display:none" class="mt-20">
+      <div class="section-header">
+        <div class="section-title" id="draft-output-title">Draft</div>
+        <div class="flex gap-8">
+          <span id="patterns-badge" class="text-muted" style="font-size:12px; align-self:center"></span>
+          <button class="btn btn-ghost btn-sm" onclick="toggleEditMode()">✏ Edit Draft</button>
+        </div>
+      </div>
+
+      <div class="draft-layout">
+        <div>
+          <!-- Read-only view -->
+          <div id="draft-view" class="draft-content"></div>
+          <!-- Edit mode -->
+          <div id="draft-edit-mode" style="display:none">
+            <textarea class="draft-editor" id="draft-textarea"></textarea>
+            <div class="flex gap-8 mt-12" style="justify-content:flex-end">
+              <button class="btn btn-ghost" onclick="cancelEdit()">Cancel</button>
+              <button class="btn" onclick="submitEdit()">Submit Correction</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Evidence sidebar -->
+        <div>
+          <div class="card evidence-panel">
+            <div class="card-title">📎 Evidence Used</div>
+            <div id="evidence-list"></div>
+          </div>
+
+          <div class="card mt-12">
+            <div class="card-title">🔍 Inspect Retrieval</div>
+            <input type="text" id="inspect-query" placeholder="Enter a query to inspect…" />
+            <button class="btn btn-ghost btn-sm mt-12" onclick="inspectRetrieval()" style="width:100%">
+              Retrieve Evidence
+            </button>
+            <div id="inspect-results"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── PATTERNS TAB ────────────────────────────────────────────── -->
+<div id="tab-patterns" class="tab-content">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-title">Learned Patterns</div>
+      <div class="flex gap-8 align-center">
+        <select id="pattern-filter" onchange="loadPatterns()" style="width:200px">
+          <option value="">All draft types</option>
+          <option value="case_fact_summary">Case Fact Summary</option>
+          <option value="internal_memo">Internal Memo</option>
+          <option value="notice_summary">Notice Summary</option>
+          <option value="title_review">Title Review</option>
+          <option value="document_checklist">Document Checklist</option>
+        </select>
+        <button class="btn btn-ghost btn-sm" onclick="loadPatterns()">↻ Refresh</button>
+      </div>
+    </div>
+    <p class="text-muted" style="font-size:13px; margin-bottom:16px">
+      Each time an operator corrects a draft, the system distils a reusable pattern.
+      These patterns are injected into future prompts to improve draft quality.
+    </p>
+    <div id="patterns-list"><div class="empty-state">No patterns learned yet. Edit a draft to teach the system.</div></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+const API = '';  // same origin
+let currentDocId = null;
+let currentDraftId = null;
+let currentDraftContent = '';
+let pollTimer = null;
+
+// ── Navigation ────────────────────────────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(`tab-${name}`).classList.add('active');
+  document.getElementById(`btn-${name}`).classList.add('active');
+  if (name === 'patterns') loadPatterns();
+  if (name === 'drafts') populateDraftDocSelect();
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+function showToast(msg, type = 'info', duration = 3500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `show ${type}`;
+  setTimeout(() => { t.className = ''; }, duration);
+}
+
+// ── Upload ────────────────────────────────────────────────────────────────────
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('upload-zone').classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file) uploadFile(file);
+}
+
+async function uploadFile(file) {
+  if (!file) return;
+  const statusEl = document.getElementById('upload-status');
+  statusEl.style.display = 'block';
+  statusEl.innerHTML = `<div class="flex gap-8 align-center"><span class="spinner"></span> Uploading ${file.name}…</div>`;
+
+  const fd = new FormData();
+  fd.append('file', file);
+
+  try {
+    const res = await fetch(`${API}/api/documents/upload`, { method: 'POST', body: fd });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || 'Upload failed');
+
+    statusEl.innerHTML = `<span style="color:var(--info)">Processing ${file.name}… <span class="spinner"></span></span>`;
+    pollDocumentStatus(data.id, statusEl);
+    showToast(`Uploaded: ${file.name}`, 'info');
+  } catch (err) {
+    statusEl.innerHTML = `<span style="color:var(--error)">Error: ${err.message}</span>`;
+    showToast(err.message, 'error');
+  }
+}
+
+function pollDocumentStatus(docId, statusEl) {
+  if (pollTimer) clearInterval(pollTimer);
+  pollTimer = setInterval(async () => {
+    try {
+      const res = await fetch(`${API}/api/documents/${docId}/status`);
+      const data = await res.json();
+      if (data.processing_status === 'done') {
+        clearInterval(pollTimer);
+        statusEl.innerHTML = `<span style="color:var(--success)">✓ Ready — ${data.chunk_count} chunks indexed</span>`;
+        loadDocuments();
+        showToast('Document ready!', 'success');
+      } else if (data.processing_status === 'failed') {
+        clearInterval(pollTimer);
+        statusEl.innerHTML = `<span style="color:var(--error)">✗ Failed: ${data.error_message}</span>`;
+        showToast('Processing failed', 'error');
+        loadDocuments();
+      }
+    } catch (e) { /* network blip, keep polling */ }
+  }, 2000);
+}
+
+// ── Documents ─────────────────────────────────────────────────────────────────
+async function loadDocuments() {
+  const tbody = document.getElementById('doc-table-body');
+  tbody.innerHTML = '<tr class="loading-row"><td colspan="6" class="empty-state">Loading…</td></tr>';
+  try {
+    const res = await fetch(`${API}/api/documents`);
+    const docs = await res.json();
+    if (!docs.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No documents yet. Upload one above.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = docs.map(d => {
+      const sf = d.structured_fields || {};
+      const caseNo = sf.case_number || '—';
+      return `
+        <tr>
+          <td><span style="font-weight:600">${esc(d.filename)}</span></td>
+          <td><span class="text-muted">${d.file_type || '—'}</span></td>
+          <td><span class="badge badge-${d.processing_status}">${d.processing_status}</span></td>
+          <td>${d.chunk_count ?? '—'}</td>
+          <td><span class="text-muted">${esc(caseNo)}</span></td>
+          <td>
+            <div class="flex gap-8">
+              <button class="btn btn-ghost btn-sm" onclick="viewDocument('${d.id}')">View</button>
+              <button class="btn btn-ghost btn-sm" onclick="openDraftStudio('${d.id}')" ${d.processing_status!=='done'?'disabled':''}>Draft</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteDocument('${d.id}', '${esc(d.filename)}')">✕</button>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="6" class="empty-state" style="color:var(--error)">Error: ${err.message}</td></tr>`;
+  }
+}
+
+async function viewDocument(docId) {
+  currentDocId = docId;
+  const el = document.getElementById('doc-detail-content');
+  el.innerHTML = '<div class="flex gap-8 align-center"><span class="spinner"></span> Loading…</div>';
+  try {
+    const res = await fetch(`${API}/api/documents/${docId}`);
+    const d = await res.json();
+    const sf = d.structured_fields || {};
+    const fields = [
+      ['Case Number', sf.case_number],
+      ['Document Type', sf.document_type],
+      ['Plaintiff', (sf.parties||{}).plaintiff],
+      ['Defendant', (sf.parties||{}).defendant],
+      ['Jurisdiction', sf.jurisdiction],
+      ['Value', sf.contract_value],
+      ['Filing Date', (sf.dates||{}).filing_date],
+    ].filter(([,v]) => v);
+
+    el.innerHTML = `
+      <div style="font-weight:600; margin-bottom:12px">${esc(d.filename)}</div>
+      <div class="fields-grid">
+        ${fields.map(([k,v]) => `
+          <div class="field-item">
+            <div class="field-label">${k}</div>
+            <div class="field-value">${esc(v)}</div>
+          </div>`).join('')}
+      </div>
+      ${d.raw_text ? `<div class="text-preview">${esc(d.raw_text.slice(0, 800))}${d.raw_text.length>800?'\n…':''}
+</div>` : ''}
+      <div class="flex gap-8 mt-12">
+        <button class="btn btn-sm" onclick="openDraftStudio('${d.id}')" ${d.processing_status!=='done'?'disabled':''}>
+          Open in Draft Studio
+        </button>
+      </div>`;
+  } catch (err) {
+    el.innerHTML = `<div style="color:var(--error)">Error: ${err.message}</div>`;
+  }
+}
+
+async function deleteDocument(docId, name) {
+  if (!confirm(`Delete "${name}"?`)) return;
+  try {
+    const res = await fetch(`${API}/api/documents/${docId}`, { method: 'DELETE' });
+    if (!res.ok) throw new Error((await res.json()).detail);
+    showToast('Document deleted', 'success');
+    loadDocuments();
+    if (currentDocId === docId) {
+      document.getElementById('doc-detail-content').innerHTML = '<div class="empty-state">Select a document.</div>';
+    }
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+}
+
+function openDraftStudio(docId) {
+  showTab('drafts');
+  document.getElementById('draft-doc-select').value = docId;
+}
+
+// ── Draft Studio ──────────────────────────────────────────────────────────────
+async function populateDraftDocSelect() {
+  try {
+    const res = await fetch(`${API}/api/documents`);
+    const docs = await res.json();
+    const sel = document.getElementById('draft-doc-select');
+    const current = sel.value;
+    sel.innerHTML = '<option value="">— select a document —</option>' +
+      docs.filter(d => d.processing_status === 'done')
+          .map(d => `<option value="${d.id}">${esc(d.filename)}</option>`).join('');
+    if (current) sel.value = current;
+  } catch (e) {}
+}
+
+async function generateDraft() {
+  const docId = document.getElementById('draft-doc-select').value;
+  const draftType = document.getElementById('draft-type-select').value;
+  const query = document.getElementById('draft-query').value.trim();
+
+  if (!docId) { showToast('Please select a document', 'error'); return; }
+
+  const btn = document.getElementById('gen-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Generating…';
+
+  try {
+    const body = { document_id: docId, draft_type: draftType };
+    if (query) body.query = query;
+
+    const res = await fetch(`${API}/api/drafts/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail);
+
+    currentDraftId = data.draft_id;
+    currentDraftContent = data.content;
+
+    document.getElementById('draft-output-title').textContent =
+      `${draftTypeLabel(draftType)} — ${new Date().toLocaleTimeString()}`;
+    document.getElementById('draft-view').textContent = data.content;
+    document.getElementById('draft-textarea').value = data.content;
+
+    const pb = document.getElementById('patterns-badge');
+    pb.textContent = data.patterns_applied > 0
+      ? `✓ ${data.patterns_applied} learned pattern(s) applied`
+      : 'No patterns applied yet (edit to teach)';
+
+    renderEvidence(data.evidence_chunks || []);
+
+    document.getElementById('draft-output-section').style.display = 'block';
+    document.getElementById('draft-edit-mode').style.display = 'none';
+    document.getElementById('draft-view').style.display = 'block';
+
+    showToast('Draft generated', 'success');
+  } catch (err) {
+    showToast(err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Generate Draft';
+  }
+}
+
+function renderEvidence(chunks) {
+  const el = document.getElementById('evidence-list');
+  if (!chunks || !chunks.length) {
+    el.innerHTML = '<div class="empty-state">No evidence chunks.</div>';
+    return;
+  }
+  el.innerHTML = chunks.map((c, i) => `
+    <div class="evidence-item">
+      <div class="ev-score">[Evidence ${i+1}] · ${(c.relevance_score*100).toFixed(0)}% relevant</div>
+      <div class="ev-text">${esc((c.text_preview||'').slice(0,180))}…</div>
+    </div>`).join('');
+}
+
+function toggleEditMode() {
+  const view = document.getElementById('draft-view');
+  const edit = document.getElementById('draft-edit-mode');
+  if (edit.style.display === 'none') {
+    document.getElementById('draft-textarea').value = currentDraftContent;
+    view.style.display = 'none';
+    edit.style.display = 'block';
+  } else {
+    view.style.display = 'block';
+    edit.style.display = 'none';
+  }
+}
+
+function cancelEdit() {
+  document.getElementById('draft-view').style.display = 'block';
+  document.getElementById('draft-edit-mode').style.display = 'none';
+}
+
+async function submitEdit() {
+  if (!currentDraftId) return;
+  const edited = document.getElementById('draft-textarea').value.trim();
+  if (!edited) { showToast('Edit is empty', 'error'); return; }
+
+  try {
+    const res = await fetch(`${API}/api/drafts/${currentDraftId}/edit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ edited_content: edited }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail);
+
+    currentDraftContent = edited;
+    document.getElementById('draft-view').textContent = edited;
+    cancelEdit();
+
+    const pat = data.pattern_learned;
+    const msg = pat
+      ? `✓ Pattern learned: "${(pat.pattern_description||'').slice(0,60)}…"`
+      : '✓ Edit saved';
+    showToast(msg, 'success', 5000);
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+}
+
+// ── Retrieval Inspector ───────────────────────────────────────────────────────
+async function inspectRetrieval() {
+  const query = document.getElementById('inspect-query').value.trim();
+  if (!query) return;
+  const docId = document.getElementById('draft-doc-select').value;
+  const el = document.getElementById('inspect-results');
+  el.innerHTML = '<div class="flex gap-8 align-center" style="margin-top:10px"><span class="spinner"></span> Retrieving…</div>';
+
+  try {
+    const body = { query, top_k: 5 };
+    if (docId) body.document_id = docId;
+    const res = await fetch(`${API}/api/retrieve`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    el.innerHTML = (data.chunks||[]).map((c,i) => `
+      <div class="evidence-item" style="margin-top:10px">
+        <div class="ev-score">[${i+1}] score: ${c.relevance_score}</div>
+        <div class="ev-text">${esc(c.text.slice(0,250))}</div>
+      </div>`).join('') || '<div class="empty-state">No results</div>';
+  } catch (err) {
+    el.innerHTML = `<div style="color:var(--error);margin-top:8px">${err.message}</div>`;
+  }
+}
+
+// ── Patterns ──────────────────────────────────────────────────────────────────
+async function loadPatterns() {
+  const draftType = document.getElementById('pattern-filter').value;
+  const el = document.getElementById('patterns-list');
+  el.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    const url = `${API}/api/patterns` + (draftType ? `?draft_type=${draftType}` : '');
+    const res = await fetch(url);
+    const patterns = await res.json();
+    if (!patterns.length) {
+      el.innerHTML = '<div class="empty-state">No patterns yet. Edit a draft to teach the system.</div>';
+      return;
+    }
+    el.innerHTML = patterns.map(p => `
+      <div class="pattern-card">
+        <div class="pattern-meta">
+          <span class="pattern-type">${p.pattern_type || 'general'}</span>
+          <span class="pattern-count">Used ${p.usage_count}× · ${p.draft_type}</span>
+          <button class="btn btn-danger btn-sm" style="margin-left:auto" onclick="deletePattern('${p.id}')">✕</button>
+        </div>
+        <div class="pattern-desc">${esc(p.pattern_description)}</div>
+        ${p.example_before && p.example_after ? `
+        <div class="pattern-example">
+          <div class="pattern-before"><span>✗ Before</span>${esc(p.example_before.slice(0,180))}</div>
+          <div class="pattern-after"><span>✓ After</span>${esc(p.example_after.slice(0,180))}</div>
+        </div>` : ''}
+        ${(p.relevance_tags||[]).length ? `<div style="margin-top:8px">${p.relevance_tags.map(t=>`<span style="background:rgba(91,156,246,.12);color:var(--info);border-radius:8px;font-size:10px;padding:2px 7px;margin-right:4px">${esc(t)}</span>`).join('')}</div>` : ''}
+      </div>`).join('');
+  } catch (err) {
+    el.innerHTML = `<div style="color:var(--error)">${err.message}</div>`;
+  }
+}
+
+async function deletePattern(id) {
+  if (!confirm('Remove this pattern?')) return;
+  try {
+    await fetch(`${API}/api/patterns/${id}`, { method: 'DELETE' });
+    loadPatterns();
+    showToast('Pattern removed', 'success');
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+}
+
+// ── Utilities ─────────────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function draftTypeLabel(t) {
+  const map = {
+    case_fact_summary: 'Case Fact Summary',
+    internal_memo: 'Internal Memo',
+    notice_summary: 'Notice Summary',
+    title_review: 'Title Review',
+    document_checklist: 'Document Checklist',
+  };
+  return map[t] || t;
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadDocuments();
+  populateDraftDocSelect();
+});
+</script>
+</body>
+</html>

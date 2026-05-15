@@ -1,0 +1,134 @@
+SUPERIOR COURT OF THE STATE OF NEW YORK
+COUNTY OF NEW YORK
+
+Case No.: CV-2024-08891
+Filed: March 15, 2024
+
+PINNACLE TECH SOLUTIONS, INC.,
+a Delaware corporation,
+
+                                Plaintiff,
+     v.
+
+QUANTUM DYNAMICS LLC,
+a New York limited liability company, and
+HAROLD WINSTED, an individual,
+
+                                Defendants.
+
+COMPLAINT FOR:
+  1. BREACH OF CONTRACT
+  2. FRAUDULENT MISREPRESENTATION
+  3. UNJUST ENRICHMENT
+
+Jury Trial Demanded
+
+---
+
+INTRODUCTION
+
+Plaintiff PINNACLE TECH SOLUTIONS, INC. ("Pinnacle") brings this action against
+Defendants QUANTUM DYNAMICS LLC ("Quantum") and its managing director HAROLD
+WINSTED for breach of a Software Services Agreement dated September 1, 2023 (the
+"Agreement"), and for fraudulent inducement in connection with that Agreement.
+
+---
+
+PARTIES
+
+1. Plaintiff PINNACLE TECH SOLUTIONS, INC. is a corporation duly organized and
+existing under the laws of Delaware, with its principal place of business at
+1450 Broadway, Suite 2200, New York, NY 10018.
+
+2. Defendant QUANTUM DYNAMICS LLC is a limited liability company organized under
+the laws of the State of New York, with its principal place of business at
+780 Third Avenue, Floor 12, New York, NY 10017.
+
+3. Defendant HAROLD WINSTED is an individual and the managing director of Quantum.
+Upon information and belief, Winsted resides in the State of New York.
+
+---
+
+FACTUAL ALLEGATIONS
+
+4. On September 1, 2023, Pinnacle and Quantum entered into the Software Services
+Agreement (the "Agreement"). A true and correct copy of the Agreement is attached
+as Exhibit A.
+
+5. Under the Agreement, Quantum agreed to deliver a custom enterprise data pipeline
+system (the "System") capable of processing no fewer than 10,000 records per hour
+with 99.9% uptime, by January 31, 2024. The total contract value was $2,850,000,
+payable in three milestones.
+
+6. Pinnacle paid the first milestone of $950,000 on October 1, 2023, and the
+second milestone of $950,000 on December 1, 2023, for a total of $1,900,000
+paid to date.
+
+7. Despite receiving $1,900,000 in milestone payments, Quantum failed to deliver
+the System by the January 31, 2024 deadline. As of the date of this Complaint,
+Quantum has delivered no functional system whatsoever.
+
+8. Prior to execution of the Agreement, Winsted represented to Pinnacle's CEO,
+Jennifer Park, that Quantum had "successfully deployed identical systems for
+Fortune 500 clients." Pinnacle has since determined that these representations
+were false: Quantum had never completed a project of this scale.
+
+9. Pinnacle made multiple written demands for delivery, including letters dated
+February 5, 2024, and February 22, 2024. Quantum has failed to respond or cure
+the breach.
+
+10. As a direct result of Quantum's breach, Pinnacle has suffered damages
+including: (a) $1,900,000 in milestone payments wrongfully retained by Quantum;
+(b) approximately $450,000 in costs to engage a replacement vendor; and
+(c) lost revenues estimated at no less than $3,200,000.
+
+---
+
+CLAIMS FOR RELIEF
+
+FIRST CLAIM — BREACH OF CONTRACT (Against Quantum)
+
+11. Plaintiff incorporates by reference the foregoing allegations.
+
+12. The Agreement constitutes a valid and enforceable contract. Pinnacle performed
+all conditions precedent. Quantum materially breached the Agreement by failing to
+deliver the System by January 31, 2024.
+
+13. As a result of Quantum's breach, Pinnacle has been damaged in an amount to be
+proven at trial, but no less than $5,550,000.
+
+SECOND CLAIM — FRAUDULENT MISREPRESENTATION (Against Quantum and Winsted)
+
+14. Winsted's pre-contract representations that Quantum had deployed "identical
+systems for Fortune 500 clients" were false and material. Winsted knew or should
+have known they were false at the time they were made.
+
+15. Pinnacle reasonably relied on these representations in entering the Agreement
+and paying $1,900,000 in milestone payments.
+
+16. Pinnacle is entitled to rescission and/or compensatory and punitive damages.
+
+THIRD CLAIM — UNJUST ENRICHMENT (Against Quantum and Winsted)
+
+17. Quantum has been unjustly enriched by retaining $1,900,000 in milestone
+payments without delivering any contractual performance.
+
+---
+
+PRAYER FOR RELIEF
+
+WHEREFORE, Plaintiff prays for:
+  a. Compensatory damages of no less than $5,550,000;
+  b. Punitive damages in an amount to be determined at trial;
+  c. Pre- and post-judgment interest;
+  d. Attorneys' fees and costs; and
+  e. Such other relief as the Court deems just and proper.
+
+Respectfully submitted,
+
+SPECTER & LITT LLP
+By: /s/ Harvey Specter
+Harvey Specter, Esq.
+Attorney for Plaintiff
+100 Park Avenue, New York, NY 10017
+Dated: March 15, 2024

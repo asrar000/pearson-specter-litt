@@ -1,0 +1,115 @@
+DEPOSITION OF HAROLD WINSTED
+Case No.: CV-2024-08891
+Pinnacle Tech Solutions, Inc. v. Quantum Dynamics LLC et al.
+
+Date: April 10, 2024
+Location: Specter & Litt LLP, 100 Park Avenue, New York, NY 10017
+
+Appearances:
+  For Plaintiff: Harvey Specter, Esq., Specter & Litt LLP
+  For Defendant: Dana Reyes, Esq., Reyes & Morrison LLP
+  Court Reporter: Angela Brooks, CSR
+
+---
+
+EXAMINATION BY MR. SPECTER:
+
+Q: Please state your full name for the record.
+A: Harold James Winsted.
+
+Q: And your current title?
+A: Managing Director of Quantum Dynamics LLC.
+
+Q: Mr. Winsted, prior to signing the Agreement with Pinnacle on September 1, 2023,
+did you make representations to Jennifer Park regarding Quantum's past experience?
+
+A: I may have mentioned some prior work. Yes.
+
+Q: I'm going to show you what has been marked as Plaintiff's Exhibit 7 — an email
+from you dated August 22, 2023. Would you read the highlighted portion?
+
+A: It says, "Quantum has successfully deployed identical enterprise data pipeline
+systems for multiple Fortune 500 clients over the past two years."
+
+Q: Did you write that?
+A: It appears so, yes.
+
+Q: Was that statement true?
+A: We had worked on similar projects.
+
+Q: That's not what I asked. Had Quantum ever delivered a fully operational
+enterprise data pipeline system, of the kind described in the Agreement, to any
+client?
+
+A: [Pause] Not — not in its entirety, no.
+
+Q: So the statement was false?
+A: It was aspirational. We had partial deployments.
+
+Q: Were you paid Milestone 1 — $950,000 — on or around October 1, 2023?
+A: Yes.
+
+Q: And Milestone 2 — another $950,000 — on December 1, 2023?
+A: Yes.
+
+Q: As of today, April 10, 2024, has Quantum delivered any version of the System?
+A: We have delivered design documents and—
+
+Q: A functioning system. Yes or no?
+A: No.
+
+Q: And you received $1,900,000 in total from Pinnacle?
+A: Correct.
+
+Q: What happened to those funds?
+A: They were used for operating expenses. Salaries. Infrastructure costs.
+
+Q: Did Quantum maintain any escrow or hold-back of client funds in case of
+project failure?
+A: No.
+
+Q: After the January 31, 2024 delivery deadline passed, did Quantum communicate
+with Pinnacle?
+A: We sent an internal update in early February.
+
+Q: To Pinnacle?
+A: I — I believe counsel advised us not to communicate directly after that point.
+
+MR. SPECTER: Let the record reflect the witness paused for approximately
+ten seconds before answering.
+
+Q: Did Quantum ever intend to hire sufficient engineering staff to complete
+the System?
+A: We intended to. The market for engineers was very competitive.
+
+Q: Quantum had three engineers on staff at project inception, correct?
+A: Yes, approximately.
+
+Q: The project specification called for a minimum team of twelve?
+A: That was an aspirational figure in the Schedule.
+
+Q: I have no further questions at this time.
+
+---
+
+CROSS-EXAMINATION BY MS. REYES:
+
+Q: Mr. Winsted, you testified that Quantum used milestone payments for
+operating expenses. Were those expenses related to the Pinnacle project?
+A: Substantially yes. We were ramping up for the engagement.
+
+Q: Did Quantum make good-faith efforts to recruit additional engineers?
+A: Yes, we posted positions and conducted interviews throughout Q4 2023.
+
+Q: Thank you. Nothing further.
+
+---
+
+CERTIFICATE OF COURT REPORTER
+
+I, Angela Brooks, Certified Shorthand Reporter, hereby certify that the
+foregoing is a true and accurate transcript of the deposition of Harold Winsted
+conducted on April 10, 2024.
+
+/s/ Angela Brooks
+Angela Brooks, CSR
