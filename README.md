@@ -132,6 +132,19 @@ Three synthetic legal documents are provided in `sample_docs/`:
 
 ---
 
+## Sample Input / Output
+
+`sample_input/` contains text files that can be treated as source documents for processing and draft generation, rather than pre-defined prompt labels. Each file in `sample_input/` may be ingested, structured, chunked, and indexed exactly like files uploaded through the API.
+
+Generated results can be saved under `sample_output/` as:
+- `*_processed.json` — extracted text, metadata, and chunk details
+- `*_draft.md` — generated draft content
+- `*_evidence.txt` — numbered retrieved evidence blocks
+
+This is useful for batch experiments, reproducible examples, or environments where you want to skip the web upload step.
+
+---
+
 ## Draft Types
 
 | Key | Label |
