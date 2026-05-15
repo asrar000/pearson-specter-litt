@@ -4,7 +4,7 @@ Shared fixtures for the PSL AI test suite.
 Key design decisions:
   • All database fixtures use in-memory or tmp_path SQLite — no real DB touched.
   • ChromaDB fixtures use tmp_path to avoid polluting the production store.
-  • The Anthropic API is not called in unit tests; LLM-dependent paths use mocks.
+  • The Groq API is not called in unit tests; LLM-dependent paths use fallbacks.
 """
 
 import os
@@ -16,7 +16,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 # Point config at test paths BEFORE importing any backend modules
-os.environ.setdefault("ANTHROPIC_API_KEY", "")
+os.environ.setdefault("GROQ_API_KEY", "")
+os.environ.setdefault("GROQ_API_KEYS", "")
 os.environ.setdefault("CHROMA_DB_PATH", tempfile.mkdtemp())
 os.environ.setdefault("SQLITE_DB_PATH", ":memory:")
 os.environ.setdefault("UPLOAD_DIR", tempfile.mkdtemp())

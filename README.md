@@ -11,11 +11,11 @@ notes, and inconsistently formatted files.
 | Stage | What happens |
 |---|---|
 | **Ingest** | Upload PDF, image, or text. PyMuPDF extracts native text; pytesseract handles scanned/image pages. |
-| **Structure** | Claude extracts case number, parties, dates, claims, and value into structured JSON (regex fallback if no API key). |
+| **Structure** | Groq extracts case number, parties, dates, claims, and value into structured JSON (regex fallback if no API key). |
 | **Index** | Cleaned text is chunked with sentence-aware overlap and embedded into ChromaDB. |
 | **Retrieve** | A query (auto-generated from draft type) retrieves the top-k most relevant chunks by cosine similarity. |
-| **Draft** | Claude generates a grounded draft. Every claim must cite `[Evidence N]`. Unsupported claims are flagged `INSUFFICIENT EVIDENCE`. |
-| **Edit** | An operator corrects the draft. The system sends the (original, edited) pair to Claude to distil a reusable improvement pattern. |
+| **Draft** | Groq generates a grounded draft. Every claim must cite `[Evidence N]`. Unsupported claims are flagged `INSUFFICIENT EVIDENCE`. |
+| **Edit** | An operator corrects the draft. The system sends the (original, edited) pair to Groq to distil a reusable improvement pattern. |
 | **Improve** | Learned patterns are injected into future prompts as few-shot examples, measurably improving citation discipline and completeness. |
 
 ---
@@ -25,7 +25,7 @@ notes, and inconsistently formatted files.
 ### Prerequisites
 - Python 3.10+
 - [Tesseract OCR](https://github.com/UB-Mannheim/tesseract/wiki) installed and on `PATH`
-- An Anthropic API key
+- A [Groq API key](https://console.groq.com/keys) for draft generation
 
 ### Install
 
@@ -40,8 +40,30 @@ pip install -r requirements.txt
 
 ```bash
 cp .env.example .env
-# Edit .env — set ANTHROPIC_API_KEY at minimum
+# Edit .env — set GROQ_API_KEY or GROQ_API_KEYS
 ```
+
+### Groq Key Pool
+
+You can use one Groq key:
+
+```bash
+GROQ_API_KEY=gsk_primary_key
+```
+
+Or rotate across several keys:
+
+```bash
+GROQ_API_KEY=gsk_key_1
+GROQ_API_KEYS=gsk_key_2,gsk_key_3,gsk_key_4
+GROQ_MODEL=llama-3.3-70b-versatile
+GROQ_MODEL_FALLBACKS=llama-3.1-8b-instant
+GROQ_MAX_TOKENS=420
+```
+
+The app automatically rotates keys on auth, rate-limit, transient network, and
+server errors. If the main model is unavailable, it tries fallback models in
+order. Increase `GROQ_MAX_TOKENS` if generated drafts feel too short.
 
 ### Run
 
@@ -71,7 +93,7 @@ Open **http://localhost:8000** in your browser.
 ## Docker
 
 ```bash
-cp .env.example .env        # set ANTHROPIC_API_KEY
+cp .env.example .env        # set GROQ_API_KEY or GROQ_API_KEYS
 ./run.sh docker-up
 ```
 

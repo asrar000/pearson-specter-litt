@@ -8,7 +8,7 @@ Handles:
   • Plain-text and Markdown files
   • Text cleaning (OCR noise, encoding artefacts)
   • Sentence-aware chunking with configurable overlap
-  • Structured field extraction via Claude (regex fallback if API unavailable)
+  • Structured field extraction via Groq (regex fallback if API unavailable)
 """
 
 import io
@@ -147,10 +147,10 @@ def extract_structured_fields(text: str) -> dict:
     """
     Extract key legal metadata.
 
-    Tries Claude first for high accuracy; falls back to regex if the API
+    Tries Groq first for high accuracy; falls back to regex if the API
     key is absent or the call fails.
     """
-    if settings.ANTHROPIC_API_KEY:
+    if settings.GROQ_API_KEYS:
         try:
             return _llm_extract_fields(text)
         except Exception as exc:
@@ -161,9 +161,8 @@ def extract_structured_fields(text: str) -> dict:
 def _llm_extract_fields(text: str) -> dict:
     import json
 
-    from anthropic import Anthropic
+    from backend.llm_client import get_llm_client
 
-    client = Anthropic(api_key=settings.ANTHROPIC_API_KEY)
     system = (
         "You are a legal document parser. Extract structured metadata from the document.\n"
         "Return ONLY valid JSON matching this schema (use null when a field is absent):\n"
@@ -179,18 +178,12 @@ def _llm_extract_fields(text: str) -> dict:
         '  "keywords": []\n'
         "}"
     )
-    resp = client.messages.create(
-        model=settings.MODEL,
+    resp = get_llm_client().complete(
         max_tokens=800,
         system=system,
-        messages=[
-            {
-                "role": "user",
-                "content": f"Extract structured fields from:\n\n{text[:3500]}",
-            }
-        ],
+        user=f"Extract structured fields from:\n\n{text[:3500]}",
     )
-    raw = resp.content[0].text.strip()
+    raw = resp.text.strip()
     raw = re.sub(r"^```(?:json)?\n?", "", raw)
     raw = re.sub(r"\n?```$", "", raw)
     return json.loads(raw)

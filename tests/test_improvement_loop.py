@@ -1,7 +1,7 @@
 """
 Unit tests for improvement_loop.py.
 
-These tests do NOT require an Anthropic API key — they test the fallback
+These tests do NOT require a Groq API key — they test the fallback
 diff-based pattern extraction and the SQLAlchemy persistence layer.
 """
 

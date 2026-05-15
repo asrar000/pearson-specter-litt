@@ -1,7 +1,7 @@
 """
 Unit tests for document_processor.py.
 
-These tests do NOT require an Anthropic API key or tesseract.
+These tests do NOT require a Groq API key or tesseract.
 They cover text cleaning, chunking, regex extraction, and the
 plain-text ingestion path of process_document().
 """

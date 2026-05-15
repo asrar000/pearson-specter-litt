@@ -19,8 +19,8 @@
 │           │ │           │        │              │
 │ PyMuPDF   │ │ ChromaDB  │        │ Edit capture │
 │ Tesseract │ │ (vectors) │        │ Pattern      │
-│ Claude    │ │           │        │ extraction   │
-│ (fields)  │ │           │        │ (Claude)     │
+│ Groq      │ │           │        │ extraction   │
+│ (fields)  │ │           │        │ (Groq)       │
 └─────┬─────┘ └─────┬─────┘        └──────┬───────┘
       │             │                     │
       ▼             ▼                     ▼
@@ -32,7 +32,7 @@
       ▼
 ┌─────────────────┐
 │  Draft Generator│
-│  (Claude API)   │
+│  (Groq API)     │
 │                 │
 │  Evidence →     │
 │  Grounded Draft │
@@ -57,7 +57,7 @@ Handles messy inputs in three stages:
 3. **Chunking**: Sentence-boundary-aware splitting with configurable size and
    overlap. Overlap preserves cross-chunk context for retrieval.
 
-4. **Field extraction**: Claude extracts case number, parties, dates, jurisdiction,
+4. **Field extraction**: Groq extracts case number, parties, dates, jurisdiction,
    claims, and contract value into JSON. Regex fallback when the API is unavailable.
 
 ### Retrieval Layer (`retrieval.py`)
@@ -90,9 +90,9 @@ as few-shot examples, guiding future output toward operator-preferred style.
 The improvement loop is **semantic**, not structural:
 
 1. Operator submits an edited draft.
-2. The (original, edited) pair is sent to Claude with the prompt:
+2. The (original, edited) pair is sent to Groq with the prompt:
    *"What is the key improvement pattern here?"*
-3. Claude returns a JSON pattern: `{description, type, before, after, tags}`.
+3. The model returns a JSON pattern: `{description, type, before, after, tags}`.
 4. Patterns are stored in `LearnedPattern` and deduplicated by description.
 5. On the next draft generation for the same draft type, the top-N patterns
    (ordered by usage count) are injected into the system prompt.
@@ -136,6 +136,7 @@ LearnedPattern
 | `[Evidence N]` citations enforced in prompt | Enables grounding inspection | LLM compliance not 100% guaranteed |
 | Pattern dedup by description | Avoids redundant examples | Semantic duplicates with different text may still be stored |
 | Regex fallback for field extraction | Works without API key | Lower accuracy on edge cases |
+| Groq key pool + model fallbacks | Keeps local demos resilient to rate limits and temporary model issues | Multiple keys still share each account/org's limits and should not be used to bypass provider policies |
 
 ## Scalability Notes
 

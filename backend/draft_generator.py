@@ -5,22 +5,19 @@ Every draft is produced by:
   1. Formatting retrieved chunks as a numbered evidence block.
   2. Building a system prompt that (a) enforces citation discipline and
      (b) injects any learned patterns as few-shot improvement examples.
-  3. Calling Claude with the evidence block + structured metadata.
+  3. Calling Groq with the evidence block + structured metadata.
 
-Citation discipline: Claude is instructed to append [Evidence N] after every
+Citation discipline: the model is instructed to append [Evidence N] after every
 factual claim and to write "INSUFFICIENT EVIDENCE" when the evidence does not
 support a claim. This keeps all output grounded in source material.
 """
 
 import logging
-from typing import Optional
-
-from anthropic import Anthropic
 
 from backend.config import settings
+from backend.llm_client import get_llm_client
 
 logger = logging.getLogger(__name__)
-client = Anthropic(api_key=settings.ANTHROPIC_API_KEY)
 
 DRAFT_TYPES: dict[str, str] = {
     "case_fact_summary": "Case Fact Summary",
@@ -143,14 +140,13 @@ def generate_draft(
         f"Do not assert anything not supported by the evidence above."
     )
 
-    response = client.messages.create(
-        model=settings.MODEL,
-        max_tokens=2500,
+    response = get_llm_client().complete(
         system=system_prompt,
-        messages=[{"role": "user", "content": user_msg}],
+        user=user_msg,
+        max_tokens=settings.GROQ_MAX_TOKENS,
     )
 
-    draft_content = response.content[0].text
+    draft_content = response.text
 
     return {
         "content": draft_content,

@@ -262,6 +262,11 @@ def generate_draft_endpoint(req: GenerateDraftRequest, db: Session = Depends(get
             detail=f"Unknown draft type '{req.draft_type}'. "
             f"Valid options: {list(DRAFT_TYPES.keys())}",
         )
+    if not settings.GROQ_API_KEYS:
+        raise HTTPException(
+            status_code=503,
+            detail="Groq API key not configured. Set GROQ_API_KEY or GROQ_API_KEYS.",
+        )
 
     vs = get_vector_store()
 

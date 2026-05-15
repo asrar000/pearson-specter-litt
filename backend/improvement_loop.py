@@ -2,8 +2,8 @@
 Operator edit → learned pattern pipeline.
 
 When an operator submits an edited draft the system:
-  1. Sends the (original, edited) pair to Claude.
-  2. Asks Claude to distil one reusable improvement pattern from the diff.
+  1. Sends the (original, edited) pair to Groq.
+  2. Asks the model to distil one reusable improvement pattern from the diff.
   3. Persists the pattern to the LearnedPattern table.
   4. Future calls to generate_draft inject the top patterns into the system prompt.
 
@@ -29,11 +29,11 @@ logger = logging.getLogger(__name__)
 
 def extract_pattern_from_edit(original: str, edited: str, draft_type: str) -> dict:
     """
-    Use Claude to distil a reusable improvement pattern from an operator edit.
+    Use Groq to distil a reusable improvement pattern from an operator edit.
 
     Falls back to a simple structural diff if the API is unavailable.
     """
-    if settings.ANTHROPIC_API_KEY:
+    if settings.GROQ_API_KEYS:
         try:
             return _llm_extract_pattern(original, edited, draft_type)
         except Exception as exc:
@@ -43,9 +43,8 @@ def extract_pattern_from_edit(original: str, edited: str, draft_type: str) -> di
 
 
 def _llm_extract_pattern(original: str, edited: str, draft_type: str) -> dict:
-    from anthropic import Anthropic
+    from backend.llm_client import get_llm_client
 
-    client = Anthropic(api_key=settings.ANTHROPIC_API_KEY)
     system = (
         "You analyse differences between an AI-generated legal draft and a human-corrected version.\n"
         "Identify the single most important improvement and return ONLY valid JSON:\n"
@@ -58,23 +57,17 @@ def _llm_extract_pattern(original: str, edited: str, draft_type: str) -> dict:
         "}\n"
         "Be specific and actionable — the pattern must guide a model to produce better drafts next time."
     )
-    resp = client.messages.create(
-        model=settings.MODEL,
+    resp = get_llm_client().complete(
         max_tokens=600,
         system=system,
-        messages=[
-            {
-                "role": "user",
-                "content": (
-                    f"Draft type: {draft_type}\n\n"
-                    f"ORIGINAL AI DRAFT (first 2000 chars):\n{original[:2000]}\n\n"
-                    f"OPERATOR-EDITED VERSION (first 2000 chars):\n{edited[:2000]}\n\n"
-                    "What is the key improvement pattern?"
-                ),
-            }
-        ],
+        user=(
+            f"Draft type: {draft_type}\n\n"
+            f"ORIGINAL AI DRAFT (first 2000 chars):\n{original[:2000]}\n\n"
+            f"OPERATOR-EDITED VERSION (first 2000 chars):\n{edited[:2000]}\n\n"
+            "What is the key improvement pattern?"
+        ),
     )
-    raw = resp.content[0].text.strip()
+    raw = resp.text.strip()
     raw = re.sub(r"^```(?:json)?\n?", "", raw)
     raw = re.sub(r"\n?```$", "", raw)
     return json.loads(raw)

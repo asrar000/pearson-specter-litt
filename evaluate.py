@@ -11,7 +11,8 @@ Runs the full pipeline against sample documents and reports:
 Usage:
   python evaluate.py
 
-Requires ANTHROPIC_API_KEY to be set in .env or the environment.
+Requires GROQ_API_KEY or GROQ_API_KEYS to be set in .env or the environment
+for LLM-based draft generation steps.
 """
 
 import json
@@ -129,8 +130,8 @@ def evaluate():
 
     section("3 — Draft Generation & Grounding")
 
-    if not settings.ANTHROPIC_API_KEY:
-        print("  ⚠  ANTHROPIC_API_KEY not set — skipping LLM-based steps.")
+    if not settings.GROQ_API_KEYS:
+        print("  ⚠  GROQ_API_KEY/GROQ_API_KEYS not set — skipping LLM-based steps.")
         db.close()
         return
 

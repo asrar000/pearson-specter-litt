@@ -9,7 +9,16 @@ services:
     volumes:
       - psl-data:/app/data
     environment:
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GROQ_API_KEYS=${GROQ_API_KEYS}
+      - GROQ_MODEL=${GROQ_MODEL:-llama-3.3-70b-versatile}
+      - GROQ_MODEL_FALLBACKS=${GROQ_MODEL_FALLBACKS:-llama-3.1-8b-instant}
+      - GROQ_RETRY_PER_MODEL=${GROQ_RETRY_PER_MODEL:-1}
+      - GROQ_MAX_TOKENS=${GROQ_MAX_TOKENS:-420}
+      - GROQ_TIMEOUT_SECONDS=${GROQ_TIMEOUT_SECONDS:-45}
+      - GROQ_TEMPERATURE=${GROQ_TEMPERATURE:-0.0}
+      - GROQ_RETRY_BACKOFF_BASE_SEC=${GROQ_RETRY_BACKOFF_BASE_SEC:-3}
+      - GROQ_RETRY_BACKOFF_MAX_SEC=${GROQ_RETRY_BACKOFF_MAX_SEC:-45}
       - CHROMA_DB_PATH=/app/data/chroma
       - SQLITE_DB_PATH=/app/data/psl.db
       - UPLOAD_DIR=/app/data/uploads
